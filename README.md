@@ -53,11 +53,11 @@ I addressed these components thusly:
   1. In order to to decide which elevator will most efficiently service the passenger I intially considered two components the distance to pickup and the travel time.
       1. Pickup time is calculated by the distance that between the elevator and the passenger if the elevator is moving towards the passenger and if not the distance between the elevator and its furthest stop plus the distance between that stop and the passenger
       1. Travel time is constant for all elevators that are moving in the same direction that the passenger wants to (for those going in the oppisite direction it is the distance to the furthest floor in the queue in the direction the elevator is moving from the elevators current position plus the distance between that floor and the passenger). I don't do this calucation and instead enforce a rule that elevators only pick up people who move in the same direction as the elevator (like real life).
-  2. To minimize travel time I prevent duplicate stop for the same elevator as a first step. I then sort the order of stops around the current location and direction of the elevator
+2. To minimize travel time I prevent duplicate stop for the same elevator as a first step. I then sort the order of stops around the current location and direction of the elevator
       * Ex.
           * if the elevator is at floor 5 and going down and had to go to floor 5,3,4,6,8,10 then the ordered list would be 5,4,3,6,8,10
           * if up then 5,6,8,10,4,3
-   3. To handle load balancing I automatically assign new passengers to elevators that arent moving (currently), It is possible to use a semaphore for each elevator to further prevent overloading one elevator.
+3. To handle load balancing I automatically assign new passengers to elevators that arent moving (currently), It is possible to use a semaphore for each elevator to further prevent overloading one elevator.
 
 
 ##API
