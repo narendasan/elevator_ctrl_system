@@ -69,28 +69,28 @@ Functions are provided to do the following actions from a user level:
     * Queue of stops requested by passengers
     * Direction of movement
 
-```golang
+```go
    func (c *Controller) GetSystemStatus() (elevPos []int, elevPas []int, elevDir []Direction, elevDes [][]int);
 
 ```
 
 * Update the state of an elevator in runtime:
-```golang
+```go
 func (c *Controller) UpdateElevator(elev int,  currentFloor int, (optional) stop int)
 ```
 
 * Request Pickup for a new passenger:
-```golang
+```go
 func (c *Controller) CallElevator(p Passenger)
 ```
 * Time step the simulation:
-```golang
+```go
 func (c *Controller) TimeStep()
 ```
 
 
 ##Execution
-In a standard Golang env just running ```go run main.go cli``` should start the system and allow to see the system run
+In a standard Golang env just running ```go run main.go cli``` should start the system and promt for initalization
 
 *THIS DOES NOT WORK YET (Ran out of time)*
 Otherwise  ```go run main.go [path to file]``` will run a test file
