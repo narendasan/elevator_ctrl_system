@@ -10,15 +10,19 @@ import (
 )
 
 func main() {
-    if os.Args[1] == "cli" {
-        cli();
+    if len(os.Args) == 2 &&  os.Args[1] == "cli"{
+         cli();
     } else {
         testFile(os.Args[1]);
     }
 }
 
 func testFile(path string){
-    inFile, _ := os.Open(path)
+    inFile, err := os.Open(path)
+    if err {
+        fmt.Errorf("INVALID PATH")
+        return 
+    }
     defer inFile.Close()
     scanner := bufio.NewScanner(inFile)
 	scanner.Split(bufio.ScanLines)
