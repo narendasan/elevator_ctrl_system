@@ -114,7 +114,12 @@ func (c *ElevatorController) assignPassengers() {
         var elev *Elevator
         for i  := range c.elevators {
             //calculate travel distance per elevator
-            dist := c.elevators[i].Distance(c.unassignedPassengers[idx])
+            var dist int
+            if len(c.elevators[i].stops) == 0 || c.elevators[i].stops == nil {
+                dist = -1
+            } else {
+                dist = c.elevators[i].Distance(c.unassignedPassengers[idx])
+            }
             //find min (check for -2 since distance returns -1 if elev no moving)
             if dist < minDist && dist > -2 {
                 elev = &c.elevators[i]

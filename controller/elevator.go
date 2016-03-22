@@ -144,9 +144,7 @@ func (e *Elevator) PassengerEnter(newPassengers *[]Passenger) {
  */
 func (e *Elevator) Distance(p Passenger) int {
     // If an elevator is not moving then it should pick up the new passenger
-    if len(e.stops) == 0 || e.stops == nil {
-        return -1;
-    } else if e.currentFloor > p.start {
+    if e.currentFloor > p.start {
         // If current floor is above passenger and elevator going down
         // Then the distance is the number of floors between passenger and elevator
         if e.dir == down {

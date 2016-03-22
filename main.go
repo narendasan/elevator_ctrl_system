@@ -12,16 +12,18 @@ import (
 func main() {
     if len(os.Args) == 2 &&  os.Args[1] == "cli"{
          cli();
-    } else {
+    } else if len(os.Args) == 2{
         testFile(os.Args[1]);
+    } else {
+        fmt.Printf("Please either 'go run ./main.go cli' or 'go run ./main.go [testfile]'\n")
     }
 }
 
 func testFile(path string){
     inFile, err := os.Open(path)
-    if err {
+    if err != nil {
         fmt.Errorf("INVALID PATH")
-        return 
+        return
     }
     defer inFile.Close()
     scanner := bufio.NewScanner(inFile)
@@ -46,7 +48,7 @@ func testFile(path string){
         } else if (stringSlice[0] == "step") {
             c.TimeStep()
         } else if (stringSlice[0] == "status") {
-            printStatus(c.GetSystemStatus())
+            printStatusCondensed(c.GetSystemStatus())
         } else if (stringSlice[0] == "update") {
             if len(stringSlice) == 4 {
                 e,_ := strconv.Atoi(stringSlice[1])
@@ -92,7 +94,7 @@ func cli() {
         }
         fmt.Printf("\n")
         c.TimeStep()
-        printStatus(c.GetSystemStatus())
+        printStatusCondensed(c.GetSystemStatus())
         t++
     }
 }
@@ -114,4 +116,18 @@ func printStatus(elevPos []int, elevPas []int, elevDir []controller.Direction, e
         fmt.Println(elevDest[idx])
         fmt.Printf("\n")
     }
+}
+
+/*printStatus(function)
+ * Formats output of GetSystemStatus
+ * @param  {[]int} elevPos positions of elevators
+ * @param  {[]int} elevPas number of passengers in elevators
+ * @param  {[]int} elevDir direction of elevators
+ * @param  {[][]int} elevDes desinations for all elevators
+ */
+func printStatusCondensed(elevPos []int, elevPas []int, elevDir []controller.Direction, elevDest [][]int) {
+    for idx := range elevPos {
+        fmt.Printf("||Elev: %d|Floor: %d|Load: %d|Dir: %d||", idx, elevPos[idx], elevPas[idx], elevDir[idx])
+    }
+    fmt.Printf("\n")
 }
